@@ -14,19 +14,66 @@
 </head>
 <body>
     <header>
+        <h1>Monica Paz Art</h1>
         
     </header>
     <div class="container">
         
         <div class="wraper murals left">
             <h2 class="wraper_title">MURALS</h2>
+            <div class="murals_container">
+                <img src="/murals/225903765_6039388416101150_6856539936877647878_n.jpg" alt="">
+                <img src="/murals/243069205_565674827883249_9163036178876028238_n.jpg" alt="">
+                <img src="/murals/333397978_753069659476254_197768435390558095_n.jpg" alt="">
+            </div>
 
         </div>
         <div class="wraper about center">
             <h2 class="wraper_title">ABOUT</h2>
+            <div class="about_description"></div>
         </div>
         <div class="wraper gallery right">
+            <!--title of the section-->
             <h2 class="wraper_title">GALLERY</h2>
+
+            <div class="wall digital">
+                <div class="painting">
+                    <img src="/paintings/digital/135756321_431468184560664_8357370761906419668_n.jpg" alt="">
+                </div>
+                <div class="painting">
+                    <img src="/paintings/digital/94837888_579596889571718_5399512375569958741_n.jpg" alt="">
+                </div>
+                <div class="painting">
+                    <img src="/paintings/digital/96085073_166888068038566_8163018743507224652_n.jpg" alt="">
+                </div>
+            </div>
+            <div class="wall main drawing">
+                <div class="painting">
+                    <img src="/paintings/paiting/monicapazvazquez___Bj-pjwchjgU___.jpg" alt="">
+                </div>
+                <div class="painting">
+                    <img src="/paintings/paiting/monicapazvazquez___BjZVpR-h5XZ___.jpg" alt="">
+                </div>
+                <div class="painting">
+                    <img src="/paintings/paiting/monicapazvazquez___BkKy-fXB010___.jpg" alt="">
+                </div>
+                <div class="painting grid_col_span_2">
+                    <img src="/paintings/paiting/monicapazvazquez___BSwtWi9l8YP___.jpg" alt="">
+                </div>
+            </div>
+            <div class="wall requests">
+                <div class="painting">
+                    <img src="/paintings/commissions/135699104_3663298393732862_7159141343666104441_n.jpg" alt="">
+                    3
+                </div>
+                <div class="painting">
+                    <img src="/paintings/commissions/145062223_471691350491454_5358979609882584526_n.jpg" alt="">
+                </div>
+            </div>
+            <div class="wall"></div>
+
+
+
         </div>
         <div class="controllers">
             <span class="comand up_comand"><i class="fa-solid fa-sort-up"></i></span>
@@ -37,23 +84,41 @@
         </div>
     </div>
     
-    <footer></footer>
+    <footer>
+        <div class="ft-wrapper">
+            <p style="text-align: left;">Created by: Simao De Jesus</p>
+            <p style="text-align: center;"><a href="https://thesimaohub.com/index.html" style="cursor: pointer;">Follow me</a></p>
+            <p style="text-align: end;">Copyright: <span id="cYear"></span> © </p> 
+        </div>
+    </footer>
     <script>
+        /*-------------- selector declarations--------------*/
 
         const up_arrow = document.querySelector(".up_comand");
-        const down_arrow = document.querySelector(".down_command");
+        const down_arrow = document.querySelector(".down_comand");
         const left_arrow = document.querySelector(".left_comand");
         const right_arrow = document.querySelector(".right_comand");
         const focus_arrow = document.querySelector(".focus_comand");
         const main_container =  document.querySelector(".container");
         const focus_icon = document.querySelector("#focus_icon");
         const wrapers = document.getElementsByClassName("wraper");
+        const gallery = document.querySelector(".gallery");
+        /*-----------------------------------------------*/
+
+        /*--------------global constants declarations--------------*/
+        const degree = 45;
         
+        /*-----------------------------------------------*/
+        /*-------------- global variables declarations--------------*/
+        let position = 0;
         let levelX = 0;
         let levelY = 0;
         let position_wrap = 1;
-
-        const move_wrap = (i) =>{
+        
+        /*-----------------------------------------------*/
+        /*-------------- functions declarations--------------*/
+       
+        const move_wrap = (i) =>{   /* rotate the different wraps to the center of the screen*/
            position_wrap += i;
            
            if((position_wrap - 1) < 0){
@@ -87,44 +152,138 @@
 
         }
 
-        focus_arrow.onclick =()=>{
-            main_container.classList.toggle("center_control");
-            main_container.classList.toggle("active");
-            if(focus_icon.getAttribute("class") == "fa-solid fa-magnifying-glass-plus"){
-                focus_icon.setAttribute("class", "fa-solid fa-magnifying-glass-minus");
-                levelY = 1;
+         
+        const right_move = () =>{   /* rotate wraper to show side wall*/
+            if (position != degree) {
+                position =position + degree;
+                if (position ==0) {
+                    gallery.style.transform = `rotateY( ${position}deg) translate(-50%, -50%)`;   
+                }else  gallery.style.transform = `rotateY( ${position}deg) translate(-85%, -50%)`;
+                levelX = levelX + 1;   
+            }
+            if(position == degree){
+                gallery.classList.toggle("left_away", true);
             }else{
-                focus_icon.setAttribute("class", "fa-solid fa-magnifying-glass-plus");
-                levelY= 0;
-            } 
+                gallery.classList.toggle("right_away", false);
+            }       
+        }
+        const left_move = () =>{    /* rotate wraper to show side wall*/
+            if (position != (-1 * degree)) {
+                position =position - degree;
+                gallery.style.transform =`rotateY( ${position}deg) translate(-50%, -50%)`; 
+                levelX = levelX -1;     
+            }
+            if(position == (-1 * degree)){
+                gallery.classList.toggle("right_away", true);
+            }else{
+                gallery.classList.toggle("left_away", false);
+            }
         }
 
-        left_arrow.onclick= () => {
+        const focus_wall = (i) =>{ /*focus point of view on a wall*/
+            switch(i){
+                case -1:   /* focus on left wall*/
+                gallery.classList.toggle("on_modal_left", true);
+                gallery.classList.toggle("main_away", true);
+                gallery.classList.toggle("right_away", true);
+                gallery.classList.toggle("left_away", false);
+                gallery.style.transform =`rotateY( ${position + degree}deg) translate(-50%, -50%)`;                
+                break;
+                case 0: /* focus on central wall*/
+                gallery.classList.toggle("on_modal_main", true);
+                gallery.classList.toggle("right_away", true);
+                gallery.classList.toggle("left_away", true);
+                break;
+                case 1: /* focus on right wall*/
+                gallery.classList.toggle("on_modal_right", true);
+                gallery.classList.toggle("left_away", true);
+                gallery.classList.toggle("main_away", true);
+                gallery.classList.toggle("right_away", false);
+                gallery.style.transform =`rotateY( ${position - degree}deg) translate(-50%, -50%)`;
+                break;
+            }
+            gallery.classList.toggle("bottom_away", true);
+            levelY = levelY + 1;
+        }
+
+        const de_focus_wall = (i) =>{   /*bring back focus point of view from a wall*/
+            switch(i){
+                case -1: /*focus back from left wall*/
+                gallery.classList.toggle("on_modal_left", false);
+                gallery.classList.toggle("main_away", false);
+                gallery.classList.toggle("right_away", true);
+                gallery.classList.toggle("left_away", false);
+                gallery.style.transform =`rotateY( ${position}deg) translate(-50%, -50%)`;                break;
+                case 0: /*focus back from left wall*/
+                gallery.classList.toggle("on_modal_main", false);
+                gallery.classList.toggle("right_away", false);
+                gallery.classList.toggle("left_away", false);
+                break;
+                case 1: /*focus back from left wall*/
+                gallery.classList.toggle("on_modal_right", false);
+                gallery.classList.toggle("left_away", true);
+                gallery.classList.toggle("main_away", false);
+                gallery.classList.toggle("right_away", false);
+                gallery.style.transform =`rotateY( ${position}deg) translate(-50%, -50%)`;
+                break;
+            }
+            gallery.classList.toggle("bottom_away",false);
+            levelY = levelY - 1;
+        }
+
+
+
+
+        /*--------------Interaction  declarations--------------*/
+        focus_arrow.onclick =()=>{ //bring and take focus from 1 main wraper
+            if ((levelY < 2)&&(levelX == 0))  {
+                main_container.classList.toggle("center_control");
+                main_container.classList.toggle("active");
+                if(focus_icon.getAttribute("class") == "fa-solid fa-magnifying-glass-plus"){
+                    focus_icon.setAttribute("class", "fa-solid fa-magnifying-glass-minus");
+                    levelY = 1;
+                }else{
+                    focus_icon.setAttribute("class", "fa-solid fa-magnifying-glass-plus");
+                    levelY= 0;
+                } 
+            }
+        }
+
+
+
+
+        left_arrow.onclick= () => { //left arrow on control action
             switch(levelY){
                 case 0:
                     move_wrap(-1);
                 break;
-
+                case 1:
+                    left_move();
+                break;
             }
         }
 
-        right_arrow.onclick= () => {
+        right_arrow.onclick= () => { //right arrow on control action
             switch(levelY){
                 case 0:
                     move_wrap(1);
                 break;
-
+                case 1:
+                    right_move();
+                break;
+            }
+        }
+        up_arrow.onclick= () => { //up arrow on control action
+            if(levelY == 1){
+                focus_wall(levelX);
             }
         }
 
-
-        
-    
-
-
-
-
-
+        down_arrow.onclick = () => {    //down arrow on control action
+            if(levelY==2){
+                de_focus_wall(levelX);
+            }
+        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>

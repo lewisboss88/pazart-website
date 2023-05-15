@@ -1,7 +1,7 @@
 html{
     --color-site-1: white;
-    --color-site-2: red;
-    --color-site-3: yellow;
+    --color-site-2: red;   /*border colors */
+    --color-site-3: #285a7b;
     --color-active-text: black;
     --margin-short: 1rem;
     --focus-width: 100%;
@@ -9,21 +9,32 @@ html{
     --secondary-width: 75%;
     --secondary-heigth: 75%;
     --size-normal: 20px;
-    --size-large: 30px;
+    --size-large: 5rem;
     --size-small: 15px;
+    --size-med: 2rem;
     --transition-times: 1.5s;
 }
 
 body{
-    background: var(--color-site-1);
+    background: url(/peter-olexa-okKjoUQNVDg-unsplash.jpg);
+    background-size: cover;
     height: 100vh;
 }
 
 header{
+    display: grid;
     height: 100px;
-    background: var(--color-site-3) ;
+    background:rgba(255,255,255,0.6); 
     border: 1px solid var(--color-site-2);
-    margin-block: var(--margin-short);
+    margin-bottom: var(--margin-short);
+    place-content: center;
+}
+header h1{
+    color: var(--color-site-3);
+    font-size: var(--size-large);
+    filter: drop-shadow( 8px 6px 4px black);
+    font-weight: 400;
+
 }
 
 .container{
@@ -35,13 +46,22 @@ header{
     position: relative;
 }
 
+
+
 footer{
     position: relative;
     height: 100px;
     width: 100%;
-    background-color: var(--color-site-3);
+    background:rgba(255,255,255,0.6);
     margin-top: auto;
+
 }
+.ft-wrapper{
+    margin-inline: auto;
+    padding-inline: 1rem;
+    color: var(--color-site-3);
+}
+
 
 /*---------Wraper sections---------*/
 .wraper{
@@ -50,6 +70,9 @@ footer{
     width: var(--secondary-width) ;
     height: var(--secondary-heigth);
     transition: var(--transition-times);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .active .center{
@@ -64,28 +87,38 @@ footer{
 }
 .left{
     inset: 50% -30%;
-    transform: translate(-50%, -50%);
+    transform: translate(-58%, -50%)
+    rotateY(8deg) 
+    translateZ(36rem);      
     z-index: -1;
 }
 .right{
     inset: 50% 130%;
-    transform: translate(-50%, -50%);
+    transform: translate(-42%, -50%)
+     rotateY(-8deg) 
+    translateZ(36rem);    
     z-index: -1;
 }
 
 .wraper_title{
-    position: relative;
+    position: absolute;
     color:var(--color-active-text);
     text-align: center;
-    bottom: 4rem;
+    top: -4rem;
     transition: var(--transition-times);
+    font-size: var(--size-med);
+    font-weight: 500;
+    filter: drop-shadow( 8px 6px 4px var(--color-site-3));
+    background: transparent;
+    backdrop-filter: grayscale(38);
 }
+
 
 .active .center .wraper_title{
-    bottom: -2rem;
+    top: 2rem;
 }
 
-/*-----------Controller------------*/
+/*-----------Controller style------------*/
 
 .controllers{
     width: 150px;
@@ -98,11 +131,11 @@ footer{
     inset: 50% 50%;
     transform: translate(-50%, 173%);
     transition: var(--transition-times);
-    z-index: 2;
+    z-index: 3;
 }
 
 .center_control  .controllers{
-    transform: translate(-50%, 50%);
+    transform: translate(-50%, 152%);
     border: 1px solid red;
 }
 
@@ -114,7 +147,7 @@ footer{
 
 
 .comand{
-    font-size: var(--size-large);
+    font-size: var(--size-med);
     margin: auto;
 }
 
@@ -134,7 +167,6 @@ footer{
 .left_comand{
     grid-column: 1;
     grid-row: 2;
-
 }
 .right_comand{
     grid-column: 3;
@@ -147,8 +179,196 @@ footer{
 }
 
 
+/*------ gallery section ----------*/
+
+.gallery{
+    --wall-h: 500px;
+    --wall-w: 600px;
+    --n-faces: 4;
+    --rotation-degree: calc(360deg / var(--n-faces));
+    --tan-rotation: tan(var(--rotation-degree) / 2);
+    --half-wall-h: calc(var(--wall-h) /2);
+    --half-wall-w: calc(var(--wall-w) /2);
+    --painting-w: 150px;
+    --painting-h: 100px;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+    background: transparent;
+}
+
+.active .gallery{
+    --wall-h: 550px;
+    --wall-w: 650px;
+}
+
+.wall{
+    width: var(--wall-w);
+    height: var(--wall-h);
+    border: 1px solid var(--color-site-2);
+    position:absolute;
+    display: grid;
+    gap: var(--margin-short);
+    transition: 0.5s;
+}
+
+.wall:nth-child(2){
+    transform: rotateY(calc(var(--rotation-degree)*1)) translateZ(calc(var(--half-wall-w) / var(--tan-rotation)));
+    background: center/100% url(/paintings/wall.jpg) no-repeat;
+    background-size: cover;
+    grid-template: repeat(4, 1fr ) /repeat(5, 1fr ); 
+}
+.wall:nth-child(3){
+    transform: rotateY(calc(var(--rotation-degree)*2)) translateZ(calc(var(--half-wall-w) / var(--tan-rotation)));
+    background: center/100% url(/paintings/wall.jpg) no-repeat;
+    background-size: cover;
+  
+    grid-template: repeat(6, 1fr) /repeat(6, 1fr);
+}
+.wall:nth-child(4){
+    transform: rotateY(calc(var(--rotation-degree)*3)) translateZ(calc(var(--half-wall-w) / var(--tan-rotation)));
+    background: center/100% url(/paintings/wall.jpg) no-repeat;   
+    background-size: cover;  
+    grid-template: repeat(3, 1fr ) /repeat(4, 1fr ); 
+}
+.wall:nth-child(5){
+    width: var(--wall-w);
+    height: var(--wall-w);
+    transform: rotateX(calc(var(--rotation-degree)*3)) translateZ(calc(var(--half-wall-h) / var(--tan-rotation)));
+    background: url(/paintings/floor.jpeg) repeat ;
+    background-size: fill;  
+}
+
+.right_away .wall:nth-child(2){
+    display: none;
+}
+.main_away .wall:nth-child(3){
+    display: none;
+}
+
+.left_away .wall:nth-child(4){
+    display: none;
+}
+.bottom_away .wall:nth-child(5){
+    display: none;
+}
+
+.on_modal_right .wall:nth-child(2){
+    width: 90%;
+    height: 90%;
+    transform: rotateY(180deg) translateZ(0);
+}
+.on_modal_main .wall:nth-child(3){
+    width: 90%;
+    height: 90%;
+    transform: rotateY(180deg) translateZ(0);
+}
+.on_modal_left .wall:nth-child(4){
+    width: 90%;
+    height: 90%;
+    transform: rotateY(180deg) translateZ(0);
+}
+
+
+.painting{
+    border: 1px solid var(--color-site-2);
+    display: block;
+    margin: auto;
+}
+
+.painting img{
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+
+.drawing .painting:nth-child(1){
+    grid-column: 5;
+    grid-row: 2;
+}
+.drawing .painting:nth-child(2){
+    grid-column: 3;
+    grid-row: 2;
+}
+.drawing .painting:nth-child(3){
+    grid-column:2;
+    grid-row:4 ;
+}
+.drawing .painting:nth-child(4){
+   grid-column: 4;
+    grid-row: 4;
+}
+
+.digital .painting:nth-child(1){
+    grid-row: 3;
+    grid-column: 2;
+}
+.digital .painting:nth-child(2){
+    grid-row: 3;
+    grid-column: 4;
+}
+.digital .painting:nth-child(3){
+    grid-row: 2;
+    grid-column: 3;
+}
+
+.requests .painting:nth-child(1){
+    grid-row: 2;
+    grid-column: 2;
+}
+.requests .painting:nth-child(2){
+    grid-row: 2;
+    grid-column: 3;
+}
+
+/*---------------Murals----------------*/
+
+.murals{
+    background: url(/murals/patrick-tomasso-QMDap1TAu0g-unsplash.jpg);
+    background-size: cover;
+}
+.murals_container{
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template: repeat(4, 1fr ) /repeat(5, 1fr ); 
+}
+
+.murals_container img{
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+.murals_container img:nth-child(1){
+    grid-row: 2;
+    grid-column: 2;
+}
+.murals_container img:nth-child(2){
+    grid-row: 3;
+    grid-column: 3;
+}
+.murals_container img:nth-child(3){
+    grid-row: 2;
+    grid-column: 4;
+}
 
 
 
+/*---------------About section----------------*/
 
+.about_description{
+    width: 500px; 
+    height: 100%;
+    border: 1px solid var(--color-site-2);
+    background: url(/justyn-warner-VH8w75u3LE0-unsplash.jpg) no-repeat;
+    background-size: 100%;
+    transition: background-size 1.5s ease-in-out;
+}
+
+.active .about_description{
+    background-size: 203%;
+    background-position: 48% 51%;
+    
+}
 
