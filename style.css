@@ -1,0 +1,154 @@
+html{
+    --color-site-1: white;
+    --color-site-2: red;
+    --color-site-3: yellow;
+    --color-active-text: black;
+    --margin-short: 1rem;
+    --focus-width: 100%;
+    --focus-heigth: 100%;
+    --secondary-width: 75%;
+    --secondary-heigth: 75%;
+    --size-normal: 20px;
+    --size-large: 30px;
+    --size-small: 15px;
+    --transition-times: 1.5s;
+}
+
+body{
+    background: var(--color-site-1);
+    height: 100vh;
+}
+
+header{
+    height: 100px;
+    background: var(--color-site-3) ;
+    border: 1px solid var(--color-site-2);
+    margin-block: var(--margin-short);
+}
+
+.container{
+    height: 100%;
+    width: 100%;
+    margin: var(--margin-short);
+    border: 1px solid var(--color-site-2);
+    overflow: hidden;
+    position: relative;
+}
+
+footer{
+    position: relative;
+    height: 100px;
+    width: 100%;
+    background-color: var(--color-site-3);
+    margin-top: auto;
+}
+
+/*---------Wraper sections---------*/
+.wraper{
+    border: 1px solid var(--color-site-2);
+    position: absolute;
+    width: var(--secondary-width) ;
+    height: var(--secondary-heigth);
+    transition: var(--transition-times);
+}
+
+.active .center{
+    width: var(--focus-width);
+    height: var(--focus-heigth);
+}
+
+.center{
+    inset: 50% 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+.left{
+    inset: 50% -30%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+.right{
+    inset: 50% 130%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+.wraper_title{
+    position: relative;
+    color:var(--color-active-text);
+    text-align: center;
+    bottom: 4rem;
+    transition: var(--transition-times);
+}
+
+.active .center .wraper_title{
+    bottom: -2rem;
+}
+
+/*-----------Controller------------*/
+
+.controllers{
+    width: 150px;
+    height: 150px;
+    display: grid;
+    place-content: center;
+    grid-template:  repeat(3, 1fr) / repeat(3, 1fr);
+    border-radius: 50%;
+    position: absolute;
+    inset: 50% 50%;
+    transform: translate(-50%, 173%);
+    transition: var(--transition-times);
+    z-index: 2;
+}
+
+.center_control  .controllers{
+    transform: translate(-50%, 50%);
+    border: 1px solid red;
+}
+
+.center_control .up_comand,
+.center_control .down_comand{
+    display: block;
+}
+
+
+
+.comand{
+    font-size: var(--size-large);
+    margin: auto;
+}
+
+.up_comand{
+    grid-column: 2;
+    grid-row: 1;
+    display: none;
+}
+.down_comand{
+    grid-column: 2;
+    grid-row: 3;
+    display: none;
+}
+
+
+
+.left_comand{
+    grid-column: 1;
+    grid-row: 2;
+
+}
+.right_comand{
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.focus_comand{
+    grid-column: 2;
+    grid-row: 2;
+}
+
+
+
+
+
+
+
