@@ -1,6 +1,6 @@
 html{
     --color-site-1: white;
-    --color-site-2: red;   /*border colors */
+   /* --color-site-2: red;   /*border colors */
     --color-site-3: #285a7b;
     --color-active-text: black;
     --margin-short: 1rem;
@@ -136,7 +136,7 @@ footer{
 
 .center_control  .controllers{
     transform: translate(-50%, 152%);
-    border: 1px solid red;
+    border: 1px solid var(--color-site-2);
 }
 
 .center_control .up_comand,
@@ -372,3 +372,18 @@ footer{
     
 }
 
+
+
+/*----responsive adjustamnets------*/
+@media screen and (max-width: 480px) {
+    html{
+        --size-large: 3rem;
+    }
+    .gallery{
+        --wall-h: 300px;
+        --wall-w: 400px;
+    }
+    .murals_container{
+        height: 70%;
+    }
+}
